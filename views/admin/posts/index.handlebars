@@ -1,0 +1,38 @@
+<h1>All POSTS</h1>
+
+{{!-- Success flash messages --}}
+{{> home/form-msgs}}
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Image</th>
+            <th>Title</th>
+            <th>Status</th>
+            <th>Allow Comments</th>
+            <th>Date</th>
+            {{!-- <th>Edit</th> --}}
+        </tr>
+    </thead>
+    <tbody>
+        {{#each post}}
+        <tr>
+            <td>{{this._id}}</td>
+            <td style="text-align: center;"><img src="/uploads/{{this.image}}" height="60" alt="Cover Image"></td>
+            <td>{{this.title}}</td>
+            <td>{{this.status}}</td>
+            <td>{{this.allowComments}}</td>
+            <td>{{generateTime this.date 'MMMM Do YYYY'}}</td>
+            <td><a href="/admin/posts/edit/{{this._id}}" class="btn btn-info">Edit</a></td>
+            <td>
+                <form action="/admin/posts/delete/{{this._id}}?_method=DELETE" method="POST">
+                    <button class="btn btn-danger"
+                        onclick="return confirm('Are you sure you want to delete this post?');">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {{/each}}
+
+    </tbody>
+</table>
